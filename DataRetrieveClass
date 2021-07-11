@@ -1,0 +1,32 @@
+public class DataRetrieveClass {
+	@AuraEnabled 
+    public static List<jsonDataWrapper> fetchJsonDataWrapper(){  
+        system.debug('start');
+        //added json as a string
+        string jsonstring = ' [{ "id": 1, "creditorName": "CBNA", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 2.00, "balance": 1363.00 }, { "id": 2, "creditorName": "AMEX", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 2.00, "balance": 2763.00 }, { "id": 3, "creditorName": "AMEX", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 2.00, "balance": 429.00 }, { "id": 4, "creditorName": "AMEX", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 2.00, "balance": 1363.00 }, { "id": 5, "creditorName": "DISCOVERBANK", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 2.00, "balance": 2644.00 }, { "id": 6, "creditorName": "CAPITAL ONE", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 4.00, "balance": 5464.00 }, { "id": 7, "creditorName": "CAPITAL ONE", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 4.00, "balance": 2345.00 }, { "id": 8, "creditorName": "CAPITAL ONE", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 4.00, "balance": 836.00 }, { "id": 9, "creditorName": "CBNA", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 3.50, "balance": 687.00 }, { "id": 10, "creditorName": "CBNA", "firstName": "Suman", "lastName": "Tester79", "minPaymentPercentage": 3.50, "balance": 235.00 } ]';
+        //parse the JSON and add to the wrapperList
+        List<jsonDataWrapper> wrpList = (list<jsonDataWrapper>) JSON.deserialize(jsonstring, list<jsonDataWrapper>.class);
+        system.debug('wrpList:'+wrpList);
+        return wrpList; 
+    }
+    
+    /* wrapper class */  
+    public class jsonDataWrapper {
+        @AuraEnabled public boolean isChecked {get;set;}
+        @AuraEnabled public integer id {get;set;}
+        @AuraEnabled public string creditorName {get;set;}
+        @AuraEnabled public string firstName {get;set;}
+        @AuraEnabled public string lastName {get;set;}
+        @AuraEnabled public double minPaymentPercentage {get;set;}
+        @AuraEnabled public double balance {get;set;}
+        public jsonDataWrapper(boolean isChecked, integer id, string creditorName, string firstName, string lastName, double minPaymentPercentage, double balance ){
+            this.isChecked = isChecked;
+            this.id = id;
+            this.creditorName = creditorName;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.minPaymentPercentage = minPaymentPercentage;
+            this.balance = balance;
+        }
+    }
+}
